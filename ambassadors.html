@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Animated VLSI Background -->
+  <div class="vlsi-background">
+    <canvas id="circuitCanvas"></canvas>
+    <div class="logic-symbols-container"></div>
+  </div>
+
   <header>
     <div class="container">
       <a href="index.html" class="logo">
@@ -78,9 +84,9 @@
           We're looking for passionate ECE/EEE students (2nd-4th year) who love hardware, enjoy teaching, and want to make a real impact on their campus. No prior experience needed—just enthusiasm and commitment!
         </p>
 
-        <div style="text-align: center; margin-top: 2rem; padding: 2rem; background: var(--card-bg); border-radius: var(--border-radius); max-width: 600px; margin-left: auto; margin-right: auto;">
+        <div style="text-align: center; margin-top: 2rem; padding: 2rem; background: rgba(244, 178, 58, 0.08); border: 2px solid var(--border-color); border-radius: var(--border-radius); max-width: 600px; margin-left: auto; margin-right: auto;">
           <h3 style="margin-bottom: 1rem;">Current Status</h3>
-          <p style="font-size: 1.3rem; color: var(--primary-gold); margin-bottom: 0.5rem;">Recruiting First Cohort</p>
+          <p style="font-size: 1.3rem; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; font-weight: 800;">Recruiting First Cohort</p>
           <p style="color: var(--text-muted);">Target: 5 ambassadors by February 2026</p>
         </div>
       </div>
@@ -123,11 +129,12 @@
           <li><a href="#" target="_blank">Instagram</a></li>
         </ul>
         <p style="margin-top: 1rem;">Email: coretexelavlsi@gmail.com</p>
-        <p>Location: Badvel, Kadapa, India</p>
+        <p>Location: Narnaund, Haryana, India</p>
       </div>
     </div>
   </footer>
 
   <script src="script.js"></script>
+  <script src="vlsi-background.js"></script>
 </body>
 </html>
