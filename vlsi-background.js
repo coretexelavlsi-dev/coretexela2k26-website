@@ -1,7 +1,3 @@
-// VLSI Background Animation Script
-// Author: CORETEXELA Team
-// Description: Animated circuit board with floating logic symbols
-
 class VLSIBackground {
   constructor() {
     this.canvas = document.getElementById('circuitCanvas');
