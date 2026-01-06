@@ -3,9 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.querySelector('.hamburger');
   const navUl = document.querySelector('nav ul');
 
-  hamburger.addEventListener('click', () => {
-    navUl.classList.toggle('active');
-  });
+  if (hamburger && navUl) {
+    hamburger.addEventListener('click', () => {
+      navUl.classList.toggle('active');
+    });
+  }
 
   // Smooth scrolling for anchor links
   const anchors = document.querySelectorAll('a[href^="#"]');
