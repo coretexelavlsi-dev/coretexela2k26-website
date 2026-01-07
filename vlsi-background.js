@@ -1,6 +1,6 @@
-// VLSI Background Animation Script
+// Digital Data Rain Background - Matrix Style
 // Author: CORETEXELA Team
-// Description: Animated circuit board with floating logic symbols
+// Description: Binary code rain with glowing particles
 
 class VLSIBackground {
   constructor() {
@@ -8,8 +8,9 @@ class VLSIBackground {
     this.ctx = this.canvas.getContext('2d');
     this.symbolsContainer = document.querySelector('.logic-symbols-container');
     
-    // VLSI Logic Symbols
-    this.logicSymbols = ['+', '-', '*', '%', '&', '^', '<', '~', '|', '>>', '==', '!=', '&&', '||'];
+    // Binary digits and tech symbols
+    this.binarySymbols = ['0', '1', '0', '1', '0', '1', '01', '10', '11', '00'];
+    this.techSymbols = ['+', '-', '*', '/', '&', '|', '^', '~', '<', '>', '='];
     
     // Circuit nodes
     this.nodes = [];
@@ -22,7 +23,7 @@ class VLSIBackground {
     this.resizeCanvas();
     this.createCircuitNodes();
     this.drawCircuit();
-    this.startSymbolRain();
+    this.startDigitalRain();
     
     // Redraw on window resize
     window.addEventListener('resize', () => {
@@ -39,14 +40,14 @@ class VLSIBackground {
   
   // Create random circuit nodes
   createCircuitNodes() {
-    const nodeCount = Math.floor((this.canvas.width * this.canvas.height) / 50000);
+    const nodeCount = Math.floor((this.canvas.width * this.canvas.height) / 80000);
     this.nodes = [];
     
     for (let i = 0; i < nodeCount; i++) {
       this.nodes.push({
         x: Math.random() * this.canvas.width,
         y: Math.random() * this.canvas.height,
-        size: Math.random() * 3 + 2
+        size: Math.random() * 2 + 1
       });
     }
     
@@ -58,11 +59,11 @@ class VLSIBackground {
         const dy = this.nodes[i].y - this.nodes[j].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 150) {
+        if (distance < 120) {
           this.connections.push({
             from: i,
             to: j,
-            opacity: 1 - (distance / 150)
+            opacity: 1 - (distance / 120)
           });
         }
       }
@@ -73,7 +74,7 @@ class VLSIBackground {
   drawCircuit() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
-    // Draw connections (circuit traces)
+    // Draw connections (circuit traces) - cyan blue
     this.connections.forEach(conn => {
       const from = this.nodes[conn.from];
       const to = this.nodes[conn.to];
@@ -81,105 +82,87 @@ class VLSIBackground {
       this.ctx.beginPath();
       this.ctx.moveTo(from.x, from.y);
       this.ctx.lineTo(to.x, to.y);
-      this.ctx.strokeStyle = `rgba(244, 178, 58, ${conn.opacity * 0.2})`;
+      this.ctx.strokeStyle = `rgba(0, 217, 255, ${conn.opacity * 0.15})`;
       this.ctx.lineWidth = 1;
       this.ctx.stroke();
     });
     
-    // Draw nodes (circuit components)
+    // Draw nodes (circuit components) - glowing blue
     this.nodes.forEach(node => {
       // Outer glow
       const gradient = this.ctx.createRadialGradient(
         node.x, node.y, 0,
-        node.x, node.y, node.size * 3
+        node.x, node.y, node.size * 4
       );
-      gradient.addColorStop(0, 'rgba(244, 178, 58, 0.4)');
-      gradient.addColorStop(1, 'rgba(244, 178, 58, 0)');
+      gradient.addColorStop(0, 'rgba(0, 217, 255, 0.3)');
+      gradient.addColorStop(1, 'rgba(0, 217, 255, 0)');
       
       this.ctx.beginPath();
-      this.ctx.arc(node.x, node.y, node.size * 3, 0, Math.PI * 2);
+      this.ctx.arc(node.x, node.y, node.size * 4, 0, Math.PI * 2);
       this.ctx.fillStyle = gradient;
       this.ctx.fill();
       
-      // Inner node
+      // Inner node - bright blue
       this.ctx.beginPath();
       this.ctx.arc(node.x, node.y, node.size, 0, Math.PI * 2);
-      this.ctx.fillStyle = 'rgba(242, 138, 26, 0.6)';
+      this.ctx.fillStyle = 'rgba(0, 255, 255, 0.4)';
       this.ctx.fill();
     });
-    
-    // Draw chip outline structures
-    this.drawChipStructures();
   }
   
-  // Draw chip-like rectangular structures
-  drawChipStructures() {
-    const structures = [
-      { x: this.canvas.width * 0.1, y: this.canvas.height * 0.2, w: 120, h: 80 },
-      { x: this.canvas.width * 0.7, y: this.canvas.height * 0.15, w: 100, h: 100 },
-      { x: this.canvas.width * 0.3, y: this.canvas.height * 0.7, w: 90, h: 70 },
-      { x: this.canvas.width * 0.85, y: this.canvas.height * 0.8, w: 80, h: 60 }
-    ];
+  // Start digital rain effect
+  startDigitalRain() {
+    // Create initial rain columns
+    const columnCount = Math.floor(window.innerWidth / 40);
     
-    structures.forEach(chip => {
-      // Chip outline
-      this.ctx.strokeStyle = 'rgba(244, 178, 58, 0.15)';
-      this.ctx.lineWidth = 2;
-      this.ctx.strokeRect(chip.x, chip.y, chip.w, chip.h);
-      
-      // Chip pins (left side)
-      for (let i = 0; i < 5; i++) {
-        const pinY = chip.y + (chip.h / 6) * (i + 1);
-        this.ctx.beginPath();
-        this.ctx.moveTo(chip.x - 10, pinY);
-        this.ctx.lineTo(chip.x, pinY);
-        this.ctx.stroke();
-      }
-      
-      // Chip pins (right side)
-      for (let i = 0; i < 5; i++) {
-        const pinY = chip.y + (chip.h / 6) * (i + 1);
-        this.ctx.beginPath();
-        this.ctx.moveTo(chip.x + chip.w, pinY);
-        this.ctx.lineTo(chip.x + chip.w + 10, pinY);
-        this.ctx.stroke();
-      }
-    });
-  }
-  
-  // Start raining logic symbols
-  startSymbolRain() {
-    // Create initial symbols
-    for (let i = 0; i < 20; i++) {
-      setTimeout(() => this.createSymbol(), i * 500);
+    for (let i = 0; i < columnCount; i++) {
+      setTimeout(() => {
+        this.createRainColumn(i * 40);
+      }, i * 100);
     }
     
-    // Continuous symbol creation
+    // Continuous rain creation
     setInterval(() => {
-      this.createSymbol();
-    }, 2000);
+      const randomX = Math.random() * window.innerWidth;
+      this.createRainColumn(randomX);
+    }, 300);
   }
   
-  // Create a single floating symbol
-  createSymbol() {
+  // Create a column of falling symbols
+  createRainColumn(xPosition) {
+    const symbolCount = Math.floor(Math.random() * 8) + 5;
+    
+    for (let i = 0; i < symbolCount; i++) {
+      setTimeout(() => {
+        this.createFallingSymbol(xPosition, i);
+      }, i * 80);
+    }
+  }
+  
+  // Create a single falling symbol
+  createFallingSymbol(xPosition, index) {
     const symbol = document.createElement('div');
     symbol.className = 'logic-symbol';
-    symbol.textContent = this.logicSymbols[
-      Math.floor(Math.random() * this.logicSymbols.length)
-    ];
     
-    // Random horizontal position
-    symbol.style.left = Math.random() * 100 + '%';
+    // Mix of binary and tech symbols (80% binary, 20% tech)
+    const useBinary = Math.random() < 0.8;
+    symbol.textContent = useBinary 
+      ? this.binarySymbols[Math.floor(Math.random() * this.binarySymbols.length)]
+      : this.techSymbols[Math.floor(Math.random() * this.techSymbols.length)];
     
-    // Random animation duration
-    const duration = 15 + Math.random() * 10;
+    // Position
+    symbol.style.left = xPosition + (Math.random() * 20 - 10) + 'px';
+    symbol.style.top = '-50px';
+    
+    // Random animation duration (speed)
+    const duration = 6 + Math.random() * 8;
     symbol.style.animationDuration = duration + 's';
     
     // Random delay
-    symbol.style.animationDelay = Math.random() * 2 + 's';
+    symbol.style.animationDelay = Math.random() * 0.5 + 's';
     
     // Random size variation
-    const size = 18 + Math.random() * 12;
+    const size = 12 + Math.random() * 10;
     symbol.style.fontSize = size + 'px';
     
     this.symbolsContainer.appendChild(symbol);
@@ -187,7 +170,7 @@ class VLSIBackground {
     // Remove after animation completes
     setTimeout(() => {
       symbol.remove();
-    }, (duration + 2) * 1000);
+    }, (duration + 1) * 1000);
   }
 }
 
