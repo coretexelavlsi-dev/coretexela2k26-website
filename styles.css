@@ -1,7 +1,7 @@
 /* Google Fonts Import */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
-/* CSS Variables - WHITE BACKGROUND THEME */
+/* CSS Variables */
 :root {
   --primary-gold: #F4B23A;
   --deep-orange: #F28A1A;
@@ -26,7 +26,6 @@
   --border-radius: 12px;
 }
 
-/* Global Reset */
 * {
   margin: 0;
   padding: 0;
@@ -40,9 +39,10 @@ body {
   color: var(--text-dark);
   background-color: #FFFFFF;
   position: relative;
+  overflow-x: hidden;
 }
 
-/* Typography Hierarchy */
+/* Typography */
 h1, h2, h3, h4 {
   font-family: var(--font-heading);
   font-weight: 800;
@@ -88,7 +88,9 @@ a:hover {
   color: var(--copper-glow);
 }
 
-/* Buttons */
+/* ============================================
+   ENHANCED BUTTONS WITH HOVER EFFECTS
+   ============================================ */
 button, .btn {
   background: var(--accent-gradient);
   color: #FFFFFF;
@@ -101,12 +103,14 @@ button, .btn {
   letter-spacing: 0.1em;
   cursor: pointer;
   border-radius: var(--border-radius);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 15px rgba(244, 178, 58, 0.3);
   position: relative;
   overflow: hidden;
+  z-index: 1;
 }
 
+/* Shine effect on hover */
 button::before, .btn::before {
   content: '';
   position: absolute;
@@ -114,17 +118,25 @@ button::before, .btn::before {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.5s;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s;
+  z-index: -1;
 }
 
 button:hover::before, .btn:hover::before {
   left: 100%;
 }
 
+/* Scale and glow on hover */
 button:hover, .btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(255, 107, 53, 0.5);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(255, 107, 53, 0.6);
+}
+
+/* Press effect on click */
+button:active, .btn:active {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(244, 178, 58, 0.4);
 }
 
 .container {
@@ -140,10 +152,8 @@ button:hover, .btn:hover {
 }
 
 /* ============================================
-   ANIMATED VLSI BACKGROUND
+   DIGITAL DATA RAIN BACKGROUND (MATRIX STYLE)
    ============================================ */
-
-/* Background Container */
 .vlsi-background {
   position: fixed;
   top: 0;
@@ -152,20 +162,20 @@ button:hover, .btn:hover {
   height: 100%;
   z-index: -1;
   overflow: hidden;
-  background: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8F9FA 100%);
 }
 
-/* Circuit Canvas */
+/* Canvas for circuit board */
 #circuitCanvas {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.4;
+  opacity: 0.15;
 }
 
-/* Logic Symbols Container */
+/* Digital rain container */
 .logic-symbols-container {
   position: absolute;
   top: 0;
@@ -175,71 +185,79 @@ button:hover, .btn:hover {
   pointer-events: none;
 }
 
-/* Individual Logic Symbol */
+/* Binary code and logic symbols */
 .logic-symbol {
   position: absolute;
   font-family: 'Courier New', monospace;
   font-weight: bold;
-  font-size: 24px;
-  color: rgba(244, 178, 58, 0.6);
-  text-shadow: 0 0 10px rgba(244, 178, 58, 0.3);
-  animation: floatDown linear infinite;
+  color: #00D9FF;
+  text-shadow: 
+    0 0 5px rgba(0, 217, 255, 0.8),
+    0 0 10px rgba(0, 217, 255, 0.6),
+    0 0 15px rgba(0, 217, 255, 0.4);
+  animation: digitalRain linear infinite;
   pointer-events: none;
+  opacity: 0;
 }
 
-/* Floating Animation */
-@keyframes floatDown {
+/* Digital rain animation */
+@keyframes digitalRain {
   0% {
-    transform: translateY(-50px) rotate(0deg);
+    transform: translateY(-50px);
     opacity: 0;
   }
-  10% {
-    opacity: 0.8;
+  5% {
+    opacity: 1;
   }
-  90% {
+  95% {
     opacity: 0.8;
   }
   100% {
-    transform: translateY(calc(100vh + 50px)) rotate(360deg);
+    transform: translateY(calc(100vh + 50px));
     opacity: 0;
   }
 }
 
-/* Different animation speeds */
+/* Different speeds and colors for depth effect */
 .logic-symbol:nth-child(3n) {
-  animation-duration: 15s;
-  color: rgba(242, 138, 26, 0.5);
+  animation-duration: 8s;
+  color: #0099CC;
+  font-size: 14px;
+  text-shadow: 
+    0 0 3px rgba(0, 153, 204, 0.8),
+    0 0 6px rgba(0, 153, 204, 0.6);
 }
 
 .logic-symbol:nth-child(3n+1) {
-  animation-duration: 20s;
-  color: rgba(255, 107, 53, 0.5);
+  animation-duration: 12s;
+  color: #00FFE5;
+  font-size: 16px;
+  text-shadow: 
+    0 0 5px rgba(0, 255, 229, 0.9),
+    0 0 10px rgba(0, 255, 229, 0.7),
+    0 0 20px rgba(0, 255, 229, 0.5);
 }
 
 .logic-symbol:nth-child(3n+2) {
-  animation-duration: 25s;
-  color: rgba(244, 178, 58, 0.6);
+  animation-duration: 10s;
+  color: #00D9FF;
+  font-size: 18px;
+  text-shadow: 
+    0 0 5px rgba(0, 217, 255, 0.8),
+    0 0 10px rgba(0, 217, 255, 0.6);
 }
 
-/* Circuit Node Glow */
-.circuit-node {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: radial-gradient(circle, rgba(244, 178, 58, 0.8) 0%, transparent 70%);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
+/* Faster particles */
+.logic-symbol:nth-child(5n) {
+  animation-duration: 6s;
+  font-size: 12px;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.5);
-    opacity: 1;
-  }
+/* Slower particles for depth */
+.logic-symbol:nth-child(7n) {
+  animation-duration: 15s;
+  font-size: 20px;
+  opacity: 0.6;
 }
 
 /* ============================================
@@ -265,7 +283,6 @@ header .container {
   gap: 2rem;
 }
 
-/* Logo */
 .logo {
   display: inline-flex;
   align-items: center;
@@ -305,7 +322,6 @@ header .container {
   background: transparent !important;
 }
 
-/* Navigation */
 nav ul {
   list-style: none;
   display: flex;
@@ -407,12 +423,12 @@ section {
 }
 
 section:nth-child(even) {
-  background: rgba(244, 178, 58, 0.03);
+  background: rgba(244, 178, 58, 0.02);
 }
 
 /* Hero */
 .hero {
-  background: linear-gradient(135deg, rgba(244, 178, 58, 0.08) 0%, rgba(255, 255, 255, 1) 100%);
+  background: linear-gradient(135deg, rgba(244, 178, 58, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
   text-align: center;
   padding: var(--spacing-xl) 0;
   position: relative;
@@ -444,10 +460,6 @@ section:nth-child(even) {
 .hero h1 {
   font-size: clamp(2rem, 6vw, 3.5rem);
   margin-bottom: 1.5rem;
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .hero p {
@@ -468,10 +480,12 @@ section:nth-child(even) {
   margin-top: 2rem;
 }
 
-/* Stats Cards */
+/* ============================================
+   STATS CARDS WITH COUNT-UP ANIMATION
+   ============================================ */
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   max-width: 1000px;
   margin: 0 auto;
@@ -483,7 +497,7 @@ section:nth-child(even) {
   padding: 2.5rem 2rem;
   border-radius: var(--border-radius);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
@@ -495,34 +509,37 @@ section:nth-child(even) {
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 4px;
   background: var(--accent-gradient);
 }
 
 .stat-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(244, 178, 58, 0.3);
+  transform: translateY(-10px);
+  box-shadow: 0 15px 45px rgba(244, 178, 58, 0.4);
   border-color: var(--primary-gold);
 }
 
 .stat-card h3 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 0.5rem;
+  font-weight: 900;
 }
 
 .stat-card p {
   color: var(--text-dark);
-  font-size: 1rem;
+  font-size: 1.05rem;
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
 }
 
-/* Cards */
-.learning-paths, .testimonials, .jobs, .founders, .values, .blog-posts {
+/* ============================================
+   CARDS - SIDE BY SIDE (3 COLUMNS)
+   ============================================ */
+.learning-paths, .jobs, .founders, .values, .blog-posts {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
@@ -534,7 +551,7 @@ section:nth-child(even) {
   padding: 2rem;
   border-radius: var(--border-radius);
   text-align: left;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -554,8 +571,8 @@ section:nth-child(even) {
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 40px rgba(244, 178, 58, 0.25);
+  transform: translateY(-8px);
+  box-shadow: 0 16px 50px rgba(244, 178, 58, 0.3);
   border-color: var(--primary-gold);
 }
 
@@ -565,7 +582,7 @@ section:nth-child(even) {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-bottom: 0.5rem;
 }
 
@@ -602,25 +619,62 @@ section:nth-child(even) {
   padding: 0.8rem 1.8rem;
 }
 
-/* Testimonials */
+/* ============================================
+   PROFESSIONAL TESTIMONIALS
+   ============================================ */
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .testimonials .card {
-  border-left: 4px solid var(--primary-gold);
+  background: linear-gradient(135deg, #FFFFFF 0%, rgba(244, 178, 58, 0.02) 100%);
+  border: 2px solid var(--border-color);
+  border-left: 5px solid var(--primary-gold);
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Quote icon */
+.testimonials .card::after {
+  content: '"';
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 5rem;
+  color: rgba(244, 178, 58, 0.15);
+  font-family: Georgia, serif;
+  line-height: 1;
 }
 
 .testimonials .card p:first-child {
   color: var(--text-dark);
   font-style: italic;
   font-size: 1.05rem;
-  line-height: 1.7;
-  margin-bottom: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .testimonials .card p:last-child {
   color: var(--text-muted);
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 700;
   text-align: right;
   margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.testimonials .card p:last-child strong {
+  color: var(--primary-gold);
+  display: block;
+  margin-bottom: 0.25rem;
 }
 
 /* CTA Section */
@@ -686,7 +740,6 @@ section:nth-child(even) {
   resize: vertical;
 }
 
-/* Filters Section */
 .filters {
   display: flex;
   justify-content: center;
@@ -731,10 +784,6 @@ section:nth-child(even) {
   nav a {
     font-size: 0.95rem;
   }
-  
-  .hero h1 {
-    font-size: 2.2rem;
-  }
 }
 
 /* ============================================
@@ -763,7 +812,6 @@ section:nth-child(even) {
   .logo img {
     height: 55px;
     max-width: 180px;
-    filter: drop-shadow(0 2px 6px rgba(244, 178, 58, 0.4));
   }
   
   .hamburger {
@@ -808,14 +856,6 @@ section:nth-child(even) {
     padding: var(--spacing-lg) 0;
   }
   
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-  
-  .hero p {
-    font-size: 1.05rem;
-  }
-  
   .hero .buttons {
     flex-direction: column;
     gap: 1rem;
@@ -823,6 +863,10 @@ section:nth-child(even) {
   
   .stats {
     grid-template-columns: 1fr;
+  }
+  
+  .stat-card h3 {
+    font-size: 2.5rem;
   }
   
   .learning-paths, .testimonials, .jobs, .founders, .values {
@@ -834,17 +878,16 @@ section:nth-child(even) {
     text-align: center;
   }
   
-  /* Performance optimization for mobile */
+  /* Reduce digital rain on mobile */
   .logic-symbol {
-    font-size: 18px;
+    font-size: 12px !important;
   }
   
   #circuitCanvas {
-    opacity: 0.2;
+    opacity: 0.08;
   }
 }
 
-/* Small Mobile (iPhone SE) */
 @media (max-width: 375px) {
   .logo img {
     height: 48px;
@@ -863,7 +906,6 @@ section:nth-child(even) {
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   .logic-symbol,
-  .circuit-node,
   .hero::before {
     animation: none;
   }
